@@ -195,8 +195,9 @@ namespace ConsoleApp8
                         //Grants user permission
                         Permission = ID;
                         Console.WriteLine("your account has been created!");
+                        goto main_menu;
                         break;
-                    case "Log in":
+                    case "/Log in":
                         Console.Clear();
 
                     email_login:
@@ -241,6 +242,7 @@ namespace ConsoleApp8
                         }
                         File.WriteAllText(RemPath, Tmp_str);
                         Console.WriteLine("loged in successfully!");
+                        goto main_menu;
                         break;
 
                     default:
