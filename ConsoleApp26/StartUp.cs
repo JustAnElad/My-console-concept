@@ -1,33 +1,42 @@
-﻿using System;
+﻿using ConsoleApp26;
+using System;
 using System.IO;
 using System.Linq;
 
+
 namespace ConsoleApp8
 {
-    class Program
+    class StartUp
     {
+
         static void Main(string[] args)
         {
-            //Console Settings
-            Console.SetWindowSize(90, 40); //Sets console size
-            Console.Title = "My App"; // Sets console name
-            ConsoleHelper.SetCurrentFont("consolas", 20); //Sets text size
-            WindowUtility.MoveWindowToCenter();//Moves window to center
+            //Calls Objects
+            SignUp signUp = new SignUp();
+            EnvSetUp envSetUp = new EnvSetUp();
+            IOUtil ioUtil = new IOUtil();
 
-            //Paths
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
-            string AppPath = Path + "/My App";          // App Path
-            string AccPath = AppPath + "/accounts";     // Accounts Directory
-            string EmailsPath = AppPath + "/emails.txt";// Emails List
-            string IdPath = AppPath + "/IDs.txt";       // Ids List
-            string RemPath = AppPath + "/Rem.txt";      // Remember 
+            //Console settings
+            envSetUp.setUpEnvaiarmentVaribules();
+            envSetUp.setUpConsole();
+
+            //Gets Paths
+            string Path = Environment.GetEnvironmentVariable("Path"); //Desktop path
+            string AppPath = Environment.GetEnvironmentVariable("AppPath");         // App Path
+            string AccPath = Environment.GetEnvironmentVariable("AccPath");      // Accounts Directory
+            string EmailsPath = Environment.GetEnvironmentVariable("EmailsPath"); // Emails List
+            string IdPath = Environment.GetEnvironmentVariable("IdPath");       // Ids List
+            string RemPath = Environment.GetEnvironmentVariable("RemPath");      // Remember 
+
             //Variables
             string Text;
-            string input = "default";                               //Input 1
-            string input_2 = "default";                             // input 2
-            string Tmp_str;                             // Temp String (used for short popurse)
-            int ID;                                     // ID Variable
-            int Permission;                             // Permission variable
+            string input;                   //Input 1
+            string input_2;                 // input 2
+            string Tmp_str;                 // Temp String (used for short popurse)
+            int Permission;                 // Permission variable     
+                               
+
+
 
             //Checks If App Directory Exist
             if (!Directory.Exists(AppPath))
@@ -78,123 +87,14 @@ namespace ConsoleApp8
             Start:
             Console.WriteLine("Hello Please choose one of the options below.");
             Console.WriteLine("/Sign in \n/Log in");
-            while (input != "/Exit" && input_2 != "/Exit" )
-            {
+            
             start_2:
-                input = Console.ReadLine();
+                input = ioUtil.getUserInput();
                 switch (input)
                 {
                     // sign in case
                     case "/Sign in":
-                        Console.Clear();
-                        //create Id
-                        Random randomId = new Random();
-                        ID = randomId.Next(100000, 999999);
-                        string[] lines = File.ReadAllLines(IdPath);
-
-                        foreach (string line in lines)
-                        {
-
-                            if (ID.Equals(Convert.ToInt32(line)))
-                            {
-                                ID = randomId.Next(100000, 999999);
-                            }
-
-
-                        }
-                    //email sign in
-                    email_signin:
-                        Console.Write("Please enter your email: ");
-                        input_2 = Console.ReadLine();
-                        Tmp_str = File.ReadLines(EmailsPath).Skip(0).Take(1).First();
-                        //check if it already exist
-                        if (input_2.Equals(Tmp_str))
-                        {
-                            Console.Clear();
-                            Console.WriteLine("this email is already exist");
-                            goto email_signin;
-                        }
-                        //check if there is @ in the email
-                        if (!input_2.Contains("@"))
-                        {
-                            Console.WriteLine("email does not exist, please check if you typed it correctly");
-                            goto email_signin;
-                        }
-                        //separate the email suffix
-                        int @Pos = input_2.IndexOf("@");
-                        string emailSuffix = input_2.Substring(@Pos);
-                        //check if the suffix is correct
-                        if (!emailSuffix.Equals("@gmail.com"))
-                        {
-                            Console.WriteLine("email does not exist, please check if you typed it correctly");
-                            goto email_signin;
-                        }
-                        string[] emails = File.ReadAllLines(EmailsPath);
-
-                        foreach (string line in emails)
-                        {
-
-                            if (input_2.Equals(line))
-                            {
-                                Console.WriteLine("this email is already exist");
-                                goto email_signin;
-                            }
-
-                        }
-                    //password sign in
-                    password_signin:
-                        Console.Write("Please enter your password: ");
-                        input = Console.ReadLine();
-                        //check password length
-                        if (input.Length < 8)
-                        {
-                            Console.WriteLine("password is too short, please use at least 8 chracters");
-                            goto password_signin;
-                        }
-                    password_signin_confirm:
-                        Console.Write("please confirm your password: ");
-                        if (Console.ReadLine() != input)
-                        {
-                            Console.WriteLine("password does not match, please check your password");
-                            goto password_signin_confirm;
-                        }
-
-
-                    remember:
-                        Console.WriteLine("remember me Yes / No.");
-                        switch (Console.ReadLine())
-                        {
-                            case "Yes":
-                                Tmp_str = "true";
-                                break;
-                            case "No":
-                                Tmp_str = "false";
-                                break;
-                            default:
-                                Console.WriteLine("Unknown command");
-                                goto remember;
-                                break;
-                        }
-                        //Creates new user directory
-                        DirectoryInfo di = Directory.CreateDirectory(AccPath + "/" + input_2);
-                        di.Attributes = FileAttributes.Directory;
-
-                        //saves user's data (Email, Password and ID)
-                        File.AppendAllText(AccPath + "/" + input_2 + "/Data.txt", input_2 +
-                                                Environment.NewLine + input + Environment.NewLine + ID);
-
-                        //saves the new email in the emails list
-                        File.AppendAllText(EmailsPath, input_2 + Environment.NewLine);
-
-                        //saves the new ID in the Ids list
-                        File.AppendAllText(IdPath, ID + Environment.NewLine);
-
-                        //saves the remember choice
-                        File.WriteAllText(RemPath, Tmp_str);
-
-                        //Grants user permission
-                        Permission = ID;
-                        Console.WriteLine("your account has been created!");
+                        signUp.start(IdPath);
                         goto main_menu;
                         break;
                     case "/Log in":
@@ -202,7 +102,7 @@ namespace ConsoleApp8
 
                     email_login:
                         Console.Write("please enter your email: ");
-                        input = Console.ReadLine();
+                        input = ioUtil.getUserInput();
                         Console.Clear();
 
                         // AccPath = DirPath + "/accounts";
@@ -221,7 +121,7 @@ namespace ConsoleApp8
 
                     password_login:
                         Console.Write("please enter your password: ");
-                        input_2 = Console.ReadLine();
+                        input_2 = ioUtil.getUserInput();
                         if (!input_2.Equals(File.ReadLines(AccPath + "\\" + input + "/Data.txt").Skip(1).Take(1).First()))
                         {
                             Console.WriteLine("password is incorrect, please check your password");
@@ -250,7 +150,7 @@ namespace ConsoleApp8
                         goto start_2;
                         break;
                 }
-            }
+        
             main_menu:
                 Console.WriteLine("hi");
                 double input_4;
@@ -268,7 +168,7 @@ namespace ConsoleApp8
             while (true)
             {
                 Console.WriteLine("1. Add\n 2. Substract\n 3. Show balance\n 4. History\n 5. Exit");
-                input = Console.ReadLine();
+                input = ioUtil.getUserInput();
                 while (input != "/Log out")
                 {
                     switch (input)
@@ -313,9 +213,10 @@ namespace ConsoleApp8
                 File.WriteAllText(RemPath, "false");
                 goto Start;
             }
-                Console.ReadLine();
+                
 
             
         }
+       
     }
 }
