@@ -8,33 +8,36 @@ namespace ConsoleApp26
 {
     class SignUp
     {
+        EnvSetUp EnvSetUp = new EnvSetUp();
         private IOUtil ioUtil;
-        //Gets Paths
-        string AppPath = Environment.GetEnvironmentVariable("AppPath");         // App Path
-        string AccPath = Environment.GetEnvironmentVariable("AccPath");      // Accounts Directory
-        string EmailsPath = Environment.GetEnvironmentVariable("EmailsPath"); // Emails List
-        string IdPath = Environment.GetEnvironmentVariable("IdPath");       // Ids List
-        string RemPath = Environment.GetEnvironmentVariable("RemPath");      // Remember 
-
-        //Vars 
-        string Tmp_str;
-        string input;
-        string input_2;
-        int Permission;
-
+       
         public SignUp()
         {
             ioUtil = new IOUtil();
         }
 
-        public void start(string path)
+        public void start()
         {
+            //Vars 
+            string Tmp_str;
+            string input;
+            string email;
+            int Permission;
+            //Paths
+            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
+            string AppPath = Path + "/My App";          // App Path
+            string AccPath = AppPath + "/accounts";     // Accounts Directory
+            string EmailsPath = AppPath + "/emails.txt";// Emails List
+            string IdPath = AppPath + "/IDs.txt";       // Ids List
+            string RemPath = AppPath + "/Rem.txt";      // Remember 
+
             Console.Clear();
+            
             //create Id
             Random randomId = new Random();
             int ID = randomId.Next(100000, 999999);
-            string[] lines = File.ReadAllLines(path);
-            string email;
+            string[] lines = File.ReadAllLines(IdPath);
+            
 
             foreach (string line in lines)
             {
@@ -45,39 +48,17 @@ namespace ConsoleApp26
                 }
 
             }
-        //email sign in
-        email_signin:
-            Console.Write("Please enter your email: ");
+
+        //email sign up
+        
+            
             email = ioUtil.getEmailInput();
-            string[] emails = File.ReadAllLines(EmailsPath);
-             
-            foreach (string line in emails)
-            {
-
-                if (email.Equals(line))
-                {
-                    Console.WriteLine("this email is already exist");
-                    goto email_signin;
-                }
-
-            }
-        //password sign in
-        password_signin:
-            Console.Write("Please enter your password: ");
-            input = ioUtil.getUserInput();
-            //check password length
-            if (input.Length < 8)
-            {
-                Console.WriteLine("password is too short, please use at least 8 chracters");
-                goto password_signin;
-            }
-        password_signin_confirm:
-            Console.Write("please confirm your password: ");
-            if (Console.ReadLine() != input)
-            {
-                Console.WriteLine("password does not match, please check your password");
-                goto password_signin_confirm;
-            }
+            
+        //password sign up
+        
+            
+            input = ioUtil.getPasswordInputSignUp();
+            
 
 
         remember:
@@ -96,15 +77,15 @@ namespace ConsoleApp26
                     break;
             }
             //Creates new user directory
-            DirectoryInfo di = Directory.CreateDirectory(AccPath + "/" + input_2);
+            DirectoryInfo di = Directory.CreateDirectory(AccPath + "/" + email);
             di.Attributes = FileAttributes.Directory;
 
             //saves user's data (Email, Password and ID)
-            File.AppendAllText(AccPath + "/" + input_2 + "/Data.txt", input_2 +
+            File.AppendAllText(AccPath + "/" + email + "/Data.txt", email +
                                     Environment.NewLine + input + Environment.NewLine + ID);
 
             //saves the new email in the emails list
-            File.AppendAllText(EmailsPath, input_2 + Environment.NewLine);
+            File.AppendAllText(EmailsPath, email + Environment.NewLine);
 
             //saves the new ID in the Ids list
             File.AppendAllText(IdPath, ID + Environment.NewLine);

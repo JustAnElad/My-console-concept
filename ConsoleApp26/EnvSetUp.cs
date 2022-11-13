@@ -11,12 +11,12 @@ namespace ConsoleApp26
         public void setUpEnvaiarmentVaribules()
         {
             //Sets Paths
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
-            string AppPath = Path + "/My App";          // App Path
-            string AccPath = AppPath + "/accounts";     // Accounts Directory
-            string EmailsPath = AppPath + "/emails.txt";// Emails List
-            string IdPath = AppPath + "/IDs.txt";       // Ids List
-            string RemPath = AppPath + "/Rem.txt";      // Remember 
+             string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
+             string AppPath = Path + "/My App";          // App Path
+             string AccPath = AppPath + "/accounts";     // Accounts Directory
+             string EmailsPath = AppPath + "/emails.txt";// Emails List
+             string IdPath = AppPath + "/IDs.txt";       // Ids List
+             string RemPath = AppPath + "/Rem.txt";      // Remember 
             Environment.SetEnvironmentVariable("Path",Path);
             Environment.SetEnvironmentVariable("AppPath", AppPath);
             Environment.SetEnvironmentVariable("AccPath",AccPath);

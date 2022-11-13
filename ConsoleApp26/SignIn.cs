@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp26
 {
-    class LogIn
+    class SignIn
     {
     }
 }

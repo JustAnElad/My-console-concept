@@ -85,6 +85,7 @@ namespace ConsoleApp8
                 goto main_menu;
             }
             Start:
+            Console.WriteLine(EmailsPath);
             Console.WriteLine("Hello Please choose one of the options below.");
             Console.WriteLine("/Sign in \n/Log in");
             
@@ -94,8 +95,8 @@ namespace ConsoleApp8
                 {
                     // sign in case
                     case "/Sign in":
-                        signUp.start(IdPath);
-                        goto main_menu;
+                        signUp.start();
+                        
                         break;
                     case "/Log in":
                         Console.Clear();
