@@ -52,7 +52,7 @@ namespace ConsoleApp26
         //email sign up
         
             
-            email = ioUtil.getEmailInput();
+            email = ioUtil.getEmailInputSignUp();
             
         //password sign up
         

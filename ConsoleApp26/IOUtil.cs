@@ -9,8 +9,51 @@ namespace ConsoleApp26
     class IOUtil
     {
 
+        public string getEmailInputSignIn()
+        {
+            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
+            string AppPath = Path + "/My App";          // App Path
+            string AccPath = AppPath + "/accounts";     // Accounts Directory
+            string input;
 
-        public string getEmailInput()
+        start:
+            Console.Write("please enter your email: ");
+            input = getUserInput();
+            string[] dirs = Directory.GetDirectories(AccPath);
+
+            foreach (var dir in dirs)
+            {
+                if ((AccPath + "\\" + input).Equals(dir))
+                {
+                    goto Continue;
+                }
+            }
+            Console.WriteLine("this email does not exist");
+            goto start;
+        Continue:
+            
+            return input;
+            
+
+        }
+        public string getPasswordInputSignIn(string input)
+        {
+            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string AppPath = Path + "/My App";          // App Path
+            string AccPath = AppPath + "/accounts";     // Accounts Directory
+            string input_2;
+            start:
+
+            Console.Write("please enter your password: ");
+            input_2 = getUserInput();
+            if (!input_2.Equals(File.ReadLines(AccPath + "\\" + input + "/Data.txt").Skip(1).Take(1).First()))
+            {
+                Console.WriteLine("password is incorrect, please check your password");
+                goto start;
+            }
+            return input_2;
+        }
+        public string getEmailInputSignUp()
         {
             string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
             string AppPath = Path + "/My App";          // App Path

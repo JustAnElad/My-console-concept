@@ -12,6 +12,7 @@ namespace ConsoleApp8
         static void Main(string[] args)
         {
             //Calls Objects
+            SignIn signIn = new SignIn();
             SignUp signUp = new SignUp();
             EnvSetUp envSetUp = new EnvSetUp();
             IOUtil ioUtil = new IOUtil();
@@ -34,7 +35,7 @@ namespace ConsoleApp8
             string input_2;                 // input 2
             string Tmp_str;                 // Temp String (used for short popurse)
             int Permission;                 // Permission variable     
-                               
+
 
 
 
@@ -84,88 +85,50 @@ namespace ConsoleApp8
             {
                 goto main_menu;
             }
-            Start:
+        Start:
             Console.WriteLine(EmailsPath);
             Console.WriteLine("Hello Please choose one of the options below.");
-            Console.WriteLine("/Sign in \n/Log in");
-            
-            start_2:
+            Console.WriteLine("/Sign up \n/Sign in");
+
+            do
+            {
                 input = ioUtil.getUserInput();
                 switch (input)
                 {
                     // sign in case
-                    case "/Sign in":
+                    case "/Sign up":
+                        Console.Clear();
                         signUp.start();
-                        
+
                         break;
-                    case "/Log in":
+                    case "/Sign in":
                         Console.Clear();
+                        signIn.start();
 
-                    email_login:
-                        Console.Write("please enter your email: ");
-                        input = ioUtil.getUserInput();
-                        Console.Clear();
-
-                        // AccPath = DirPath + "/accounts";
-                        //makes a list of all the directories inside "accounts" directory
-                        string[] dirs = Directory.GetDirectories(AccPath);
-
-                        foreach (var dir in dirs)
-                        {
-                            if ((AccPath + "\\" + input).Equals(dir))
-                            {
-                                goto password_login;
-                            }
-                        }
-                        Console.WriteLine("this email does not exist");
-                        goto email_login;
-
-                    password_login:
-                        Console.Write("please enter your password: ");
-                        input_2 = ioUtil.getUserInput();
-                        if (!input_2.Equals(File.ReadLines(AccPath + "\\" + input + "/Data.txt").Skip(1).Take(1).First()))
-                        {
-                            Console.WriteLine("password is incorrect, please check your password");
-                            goto password_login;
-                        }
-                    remember_2:
-                        Console.WriteLine("remember me Yes / No.");
-                        switch (Console.ReadLine())
-                        {
-                            case "Yes":
-                                Tmp_str = "true";
-                                break;
-                            case "No":
-                                Tmp_str = "false";
-                                break;
-                            default:
-                                goto remember_2;
-                        }
-                        File.WriteAllText(RemPath, Tmp_str);
-                        Console.WriteLine("loged in successfully!");
-                        goto main_menu;
                         break;
 
                     default:
-                        Console.WriteLine("Invalid option");
-                        goto start_2;
+                        Console.WriteLine("Invalid option, please type again");
                         break;
                 }
-        
-            main_menu:
-                Console.WriteLine("hi");
-                double input_4;
-                string FilePath = Path + "/balance.txt";
-                string hispath = Path + "/history.txt";
-                if (!File.Exists(FilePath))
-                {
-                    File.WriteAllText(FilePath, "0");
-                }
-                if (!File.Exists(hispath))
-                {
-                    File.WriteAllText(hispath, "0");
-                }
-                double balance = Convert.ToDouble(File.ReadAllText(FilePath));
+            }
+            while (input != "/Sign up" && input != "Sign in");
+            
+
+        main_menu:
+            Console.WriteLine("hi");
+            double input_4;
+            string FilePath = Path + "/balance.txt";
+            string hispath = Path + "/history.txt";
+            if (!File.Exists(FilePath))
+            {
+                File.WriteAllText(FilePath, "0");
+            }
+            if (!File.Exists(hispath))
+            {
+                File.WriteAllText(hispath, "0");
+            }
+            double balance = Convert.ToDouble(File.ReadAllText(FilePath));
             while (true)
             {
                 Console.WriteLine("1. Add\n 2. Substract\n 3. Show balance\n 4. History\n 5. Exit");
@@ -214,10 +177,10 @@ namespace ConsoleApp8
                 File.WriteAllText(RemPath, "false");
                 goto Start;
             }
-                
 
-            
+
+
         }
-       
+
     }
 }
