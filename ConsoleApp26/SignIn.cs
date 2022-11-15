@@ -34,10 +34,10 @@ namespace ConsoleApp26
             Console.Clear();
 
             //email
-            input = ioUtil.getEmailInputSignIn();
+            input = ioUtil.GetEmailInputSignIn();
 
             //password
-            input_2 = ioUtil.getPasswordInputSignIn(input);
+            input_2 = ioUtil.GetPasswordInputSignIn(input);
 
         remember:
             Console.WriteLine("remember me Yes / No.");

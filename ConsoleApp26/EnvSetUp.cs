@@ -8,7 +8,7 @@ namespace ConsoleApp26
 {
     class EnvSetUp
     {
-        public void setUpEnvaiarmentVaribules()
+        public void SetupEnvironmentVariables()
         {
             //Sets Paths
              string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
@@ -34,7 +34,7 @@ namespace ConsoleApp26
 
         }
 
-        public void setUpConsole()
+        public void SetupConsole()
         {
             Console.SetWindowSize(90, 40); //Sets console size
             Console.Title = "My App"; // Sets console name

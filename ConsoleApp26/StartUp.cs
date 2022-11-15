@@ -18,8 +18,8 @@ namespace ConsoleApp8
             IOUtil ioUtil = new IOUtil();
 
             //Console settings
-            envSetUp.setUpEnvaiarmentVaribules();
-            envSetUp.setUpConsole();
+            envSetUp.SetupEnvironmentVariables();
+            envSetUp.SetupConsole();
 
             //Gets Paths
             string Path = Environment.GetEnvironmentVariable("Path"); //Desktop path
@@ -92,7 +92,7 @@ namespace ConsoleApp8
 
             do
             {
-                input = ioUtil.getUserInput();
+                input = ioUtil.GetUserInput();
                 switch (input)
                 {
                     // sign in case
@@ -132,7 +132,7 @@ namespace ConsoleApp8
             while (true)
             {
                 Console.WriteLine("1. Add\n 2. Substract\n 3. Show balance\n 4. History\n 5. Exit");
-                input = ioUtil.getUserInput();
+                input = ioUtil.GetUserInput();
                 while (input != "/Log out")
                 {
                     switch (input)
