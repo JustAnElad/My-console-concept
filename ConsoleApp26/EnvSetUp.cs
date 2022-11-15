@@ -39,7 +39,7 @@ namespace ConsoleApp26
             Console.SetWindowSize(90, 40); //Sets console size
             Console.Title = "My App"; // Sets console name
             ConsoleHelper.SetCurrentFont("consolas", 20); //Sets text size
-            WindowUtility.MoveWindowToCenter();//Moves window to center
+            WindowUtility.TryMoveWindowToCenter();//Moves window to center
         }
     }
 }

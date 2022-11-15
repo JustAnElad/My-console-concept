@@ -54,12 +54,12 @@ static class WindowUtility
         return new Size(width, height);
     }
 
-    public static void MoveWindowToCenter()
+    public static bool TryMoveWindowToCenter()
     {
         IntPtr window = Process.GetCurrentProcess().MainWindowHandle;
 
         if (window == IntPtr.Zero)
-            throw new Exception("Couldn't find a window to center!");
+            return false;
 
         Size screenSize = GetScreenSize();
         Size windowSize = GetWindowSize(window);
@@ -68,5 +68,7 @@ static class WindowUtility
         int y = (screenSize.Height - windowSize.Height) / 2;
 
         SetWindowPos(window, IntPtr.Zero, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+        return true;
     }
 }
