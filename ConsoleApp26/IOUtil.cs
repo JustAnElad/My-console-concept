@@ -9,7 +9,7 @@ namespace ConsoleApp26
     class IOUtil
     {
 
-        public string getEmailInputSignIn()
+        public string GetEmailInputSignIn()
         {
             string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
             string AppPath = Path + "/My App";          // App Path
@@ -18,7 +18,7 @@ namespace ConsoleApp26
 
         start:
             Console.Write("please enter your email: ");
-            input = getUserInput();
+            input = GetUserInput();
             string[] dirs = Directory.GetDirectories(AccPath);
 
             foreach (var dir in dirs)
@@ -36,7 +36,7 @@ namespace ConsoleApp26
             
 
         }
-        public string getPasswordInputSignIn(string input)
+        public string GetPasswordInputSignIn(string input)
         {
             string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string AppPath = Path + "/My App";          // App Path
@@ -45,7 +45,7 @@ namespace ConsoleApp26
             start:
 
             Console.Write("please enter your password: ");
-            input_2 = getUserInput();
+            input_2 = GetUserInput();
             if (!input_2.Equals(File.ReadLines(AccPath + "\\" + input + "/Data.txt").Skip(1).Take(1).First()))
             {
                 Console.WriteLine("password is incorrect, please check your password");
@@ -53,7 +53,7 @@ namespace ConsoleApp26
             }
             return input_2;
         }
-        public string getEmailInputSignUp()
+        public string GetEmailInputSignUp()
         {
             string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
             string AppPath = Path + "/My App";          // App Path
@@ -65,7 +65,7 @@ namespace ConsoleApp26
 
         start:
             Console.Write("Please enter your email: ");
-            input = getUserInput();
+            input = GetUserInput();
             if(input.Length >= 254)
             {
                 Console.WriteLine("Email is too long, please use at most 254 characters");
@@ -103,12 +103,12 @@ namespace ConsoleApp26
             return input;
         }
 
-        public string getPasswordInputSignUp()
+        public string GetPasswordInputSignUp()
         {
             string input;
         start:
             Console.Write("Please enter your password: ");
-            input = getUserInput();
+            input = GetUserInput();
             //check password length
             if (input.Length < 8)
             {
@@ -122,7 +122,7 @@ namespace ConsoleApp26
             }
         password_signin_confirm:
             Console.Write("please confirm your password: ");
-            if (getUserInput() != input)
+            if (GetUserInput() != input)
             {
                 Console.WriteLine("password does not match, please check your password");
                 goto password_signin_confirm;
@@ -130,7 +130,7 @@ namespace ConsoleApp26
             return input;
         }
 
-        public string getUserInput()
+        public string GetUserInput()
         {
             string input = Console.ReadLine();
             if (input == "/Exit")

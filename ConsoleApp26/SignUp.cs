@@ -52,12 +52,12 @@ namespace ConsoleApp26
         //email sign up
         
             
-            email = ioUtil.getEmailInputSignUp();
+            email = ioUtil.GetEmailInputSignUp();
             
         //password sign up
         
             
-            input = ioUtil.getPasswordInputSignUp();
+            input = ioUtil.GetPasswordInputSignUp();
             
 
 
