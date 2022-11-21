@@ -11,9 +11,7 @@ namespace ConsoleApp26
 
         public string GetEmailInputSignIn()
         {
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
-            string AppPath = Path + "/My App";          // App Path
-            string AccPath = AppPath + "/accounts";     // Accounts Directory
+            string AccPath = Globals.AccPath;
             string input;
 
         start:
@@ -38,9 +36,7 @@ namespace ConsoleApp26
         }
         public string GetPasswordInputSignIn(string input)
         {
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string AppPath = Path + "/My App";          // App Path
-            string AccPath = AppPath + "/accounts";     // Accounts Directory
+            string AccPath = Globals.AccPath;
             string input_2;
             start:
 
@@ -53,14 +49,10 @@ namespace ConsoleApp26
             }
             return input_2;
         }
+
         public string GetEmailInputSignUp()
         {
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
-            string AppPath = Path + "/My App";          // App Path
-            string AccPath = AppPath + "/accounts";     // Accounts Directory
-            string EmailsPath = AppPath + "/emails.txt";// Emails List
-            string IdPath = AppPath + "/IDs.txt";       // Ids List
-            string RemPath = AppPath + "/Rem.txt";      // Remember 
+            string EmailsPath = Globals.EmailsPath;
             string input;
 
         start:
@@ -136,6 +128,11 @@ namespace ConsoleApp26
             if (input == "/Exit")
             {
                 Environment.Exit(0);
+            }
+            else if(input == "/Sign out")
+            {
+                Globals.Permission = 0;
+                StartUp.Menu();
             }
             return input;
         }

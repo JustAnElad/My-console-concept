@@ -54,6 +54,7 @@ namespace ConsoleApp26
             }
             File.WriteAllText(RemPath, Tmp_str);
             Permission = Convert.ToInt32(File.ReadLines(AccPath + "\\" + input + "/Data.txt").Skip(1).Take(1).First());
+            Globals.Permission = Permission;
             Console.WriteLine("loged in successfully!");
         }
     }

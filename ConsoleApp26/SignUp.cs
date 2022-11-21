@@ -94,7 +94,7 @@ namespace ConsoleApp26
             File.WriteAllText(RemPath, Tmp_str);
 
             //Grants user permission
-            Permission = ID;
+            Globals.Permission = ID;
             Console.WriteLine("your account has been created!");
         }
     }

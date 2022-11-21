@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp26
 {
-    class EnvSetUp
+    public class EnvSetUp
     {
+       
+
+
+
         public void SetupEnvironmentVariables()
+        
         {
-            //Sets Paths
+           /* //Sets Paths
              string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
              string AppPath = Path + "/My App";          // App Path
              string AccPath = AppPath + "/accounts";     // Accounts Directory
@@ -30,7 +35,7 @@ namespace ConsoleApp26
             string input_2;                 // input 2
             string Tmp_str;                 // Temp String (used for short popurse)
             int Permission;                 // Permission variable    
-            Environment.SetEnvironmentVariable("Text",Text);
+            Environment.SetEnvironmentVariable("Text",Text);*/
 
         }
 
