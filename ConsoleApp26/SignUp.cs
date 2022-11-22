@@ -90,8 +90,8 @@ namespace ConsoleApp26
             //saves the new ID in the Ids list
             File.AppendAllText(IdPath, ID + Environment.NewLine);
 
-            //saves the remember choice
-            File.WriteAllText(RemPath, Tmp_str);
+            //saves the remember choice and Permission
+            File.WriteAllText(RemPath, Tmp_str + Environment.NewLine + ID);
 
             //Grants user permission
             Globals.Permission = ID;

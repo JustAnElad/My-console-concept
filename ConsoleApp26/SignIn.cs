@@ -21,15 +21,10 @@ namespace ConsoleApp26
             string Tmp_str;
             string input;
             string input_2;
-            string email;
             int Permission;
             //Paths
-            string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); //Desktop Path
-            string AppPath = Path + "/My App";          // App Path
-            string AccPath = AppPath + "/accounts";     // Accounts Directory
-            string EmailsPath = AppPath + "/emails.txt";// Emails List
-            string IdPath = AppPath + "/IDs.txt";       // Ids List
-            string RemPath = AppPath + "/Rem.txt";      // Remember 
+            string AccPath = Globals.AccPath;
+            string RemPath = Globals.RemPath; 
 
             Console.Clear();
 
@@ -52,8 +47,8 @@ namespace ConsoleApp26
                 default:
                     goto remember;
             }
-            File.WriteAllText(RemPath, Tmp_str);
-            Permission = Convert.ToInt32(File.ReadLines(AccPath + "\\" + input + "/Data.txt").Skip(1).Take(1).First());
+            Permission = Convert.ToInt32(File.ReadLines(AccPath + "\\" + input + "/Data.txt").Skip(2).Take(1).First());
+            File.WriteAllText(RemPath, Tmp_str + Environment.NewLine + Permission);
             Globals.Permission = Permission;
             Console.WriteLine("loged in successfully!");
         }

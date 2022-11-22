@@ -124,6 +124,7 @@ namespace ConsoleApp26
 
         public string GetUserInput()
         {
+            string RemPath = Globals.RemPath;
             string input = Console.ReadLine();
             if (input == "/Exit")
             {
@@ -132,6 +133,7 @@ namespace ConsoleApp26
             else if(input == "/Sign out")
             {
                 Globals.Permission = 0;
+                  File.WriteAllText(RemPath, "flase" + Environment.NewLine + Globals.Permission);
                 StartUp.Menu();
             }
             return input;
